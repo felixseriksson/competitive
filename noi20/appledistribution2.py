@@ -20,6 +20,7 @@ summa = sum(applesdelivered)
 totrest = summa % 8
 len1 = len(oneresiduals)
 len5 = len(fiveresiduals)
+
 if totrest == 0:
     remove = 0
 elif totrest == 1:
