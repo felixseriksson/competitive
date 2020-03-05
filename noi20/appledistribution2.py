@@ -1,10 +1,11 @@
 from math import floor
+
 def gethousesinrange(radius):
     points = 0
     for h in range(radius):
         points += floor((radius**2-h**2)**0.5)
     return 4*points + 1
-    
+
 rads = int(input())
 applesdelivered = [gethousesinrange(int(x)) for x in input().split()]
 applesdelivered.sort()
