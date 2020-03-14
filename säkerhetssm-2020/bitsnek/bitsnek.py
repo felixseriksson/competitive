@@ -1,0 +1,33 @@
+import zlib, struct
+
+haha = b'\xb4\xa1\xd2M\xea"\x10,\xa9WnM\xed\xc1\x91\xef\x9a\xfe\x17$\xc9\x00c\xff\xed\x93\x87=\xf5M\xa5\x0b\x11\xb5\x83\xe7c\xa2c\xce\xba\xfcA\n\xb8\xbc\xf1\xd1C\xfb\xc9y\x12N\x84\xd6\x8d3\xaa\xd5+\xac\x12\x0e\xf6R\x82="\xd0\xe8\x90DD5\xc6'
+haha2 = b'\xb4\xa1\xd2\xea\x10\xa9\xed\xc1\x91\xef\x9a\xfe\x17\xc9\x00\xff\xed\x93\x87\xf5\xa5\x0b\x11\xb5\x83\xe7\xa2\xce\xba\xfc\n\xb8\xbc\xf1\xd1\xfb\xc9\x12\x84\xd6\x8d\xaa\xd5\xac\x12\x0e\xf6\x82\xd0\xe8\x90\xc6'
+#print(haha.decode("utf-8"))
+
+oof = 'OOF{th3_p0ison_1t_stingzzzz}'
+
+# a = input('Hsssss, tell me why I should not kill you now: ').encode('ascii')
+
+# a += '\x00' * (len(a) % 2) # appendar \x00 om a är udda, annars inget
+a = '\x00' * 5
+
+b = [322376503]
+
+for c in [a[i:i + 2] for i in range(0, len(a), 2)]:
+
+    b.append(zlib.crc32(c, b[(-1)]))
+
+
+b = b[1:]
+
+b = (struct.pack)('<%dI' % len(b), *b)
+
+b = bytes(x ^ y for x, y in zip(b, oof * len(b)))
+
+if b == haha:
+
+    print('Hssss. Yes, master')
+
+else:
+
+    print('HSSSS! Ahahahaha! Prepare to die!')
