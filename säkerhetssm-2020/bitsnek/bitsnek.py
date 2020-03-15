@@ -6,10 +6,10 @@ haha2 = b'\xb4\xa1\xd2\xea\x10\xa9\xed\xc1\x91\xef\x9a\xfe\x17\xc9\x00\xff\xed\x
 
 oof = 'OOF{th3_p0ison_1t_stingzzzz}'
 
-# a = input('Hsssss, tell me why I should not kill you now: ').encode('ascii')
+a = input('Hsssss, tell me why I should not kill you now: ').encode('ascii')
 
-# a += '\x00' * (len(a) % 2) # appendar \x00 om a är udda, annars inget
-a = '\x00' * 5
+a += b'\x00' * (len(a) % 2) # appendar \x00 om a är udda, annars inget
+# a = '\x00' * 5
 
 b = [322376503]
 
