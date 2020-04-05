@@ -13,7 +13,6 @@ def revpythonindex(index, bits):
     return revoutputindex(index, bits) - 1
 
 def vilkensortspar(lista):
-    """ returns booleans for symmetric pairs, assymmetric pairs"""
     assym = [None, None]
     sym = [None, None]
     for i in range(len(lista)//2):
@@ -23,7 +22,7 @@ def vilkensortspar(lista):
             sym = [i, len(lista)-(i+1)]
         else:
             assym = [i, len(lista)-(i+1)]
-    return sym, assym
+    return sym, assym # index på de symmetriska/assymmetriska paren
 
 def reversebitlist(lista):
     return lista[::-1]
@@ -40,74 +39,69 @@ for testcase in range(0, testcases):
         x = int(input())
         bitlist[init] = x
     queriesdone = 10
-    index = 0
+    offset = 0 # vi gör jämna heltalsmultiplar av queries (första-sista, näst första-näst sista osv)
     # hitta symmetriskt och asymmetriskt par
-    while True:
-        if index >= bits:
-            # klar
-            break
+    while 2 * offset < bits:
+        # behöver inte kolla här, querisdone kommer alltid vara en heltalsmultipel av 10 när vi kommer hit, vi ser till det nere,
+        # men vi kan kolla ändå
         if queriesdone % 10 == 0:
             symmetriska, assymmetriska = vilkensortspar(bitlist)
 
-        if symmetriska and not assymmetriska:
+        if symmetriska != [None, None] and assymmetriska == [None, None]:
             # rev gör ingen skillnad, comp och revcomp har samma effekt: kan kännas igen genom att kolla ett värde
             checkbefore = bitlist[symmetriska[0]]
             fprint(outputindex(symmetriska[0]))
-            checkafter = input()
+            checkafter = int(input())
             queriesdone += 1
             if checkbefore != checkafter:
                 # switch
                 bitlist = compbitlist(bitlist)
             # nu kan vi göra 9 till queries, men vi gör bara 8 (symmetriskt från båda sidor) + en extra som inte ger nåt
-            for q in range(9):
-                while True:
-                    if index in range((bits//2)-5, (bits//2)+5):
-                        index += 1
-                    else:
-                        break
-                if index > bits:
-                    break
-                fprint(outputindex(index))
-                x = int(input())
-                bitlist[index] = x
-                if index >= bits:
-                    break
-                index += 1
+            nowqueries = 0
+            while nowqueries != 8 and 2 * offset < bits:
+                if bitlist[offset] == None:
+                    fprint(outputindex(offset))
+                    x = int(input())
+                    bitlist[offset] = x
+                    fprint(bits-offset)
+                    y = int(input())
+                    bitlist[bits-offset-1] = y
+                    queriesdone += 2
+                else:
+                    offset += 1
 
-        elif not symmetriska and assymmetriska:
+
+        elif symmetriska == [None, None] and assymmetriska != [None, None]:
             # revcomp gör ingen skillnad, rev och comp har samma effekt: kan kännas igen genom att kolla ett värde
             checkbefore = bitlist[assymmetriska[0]]
             fprint(outputindex(assymmetriska[0]))
-            checkafter = input()
+            checkafter = int(input())
             queriesdone += 1
             if checkbefore != checkafter:
                 # switch
                 bitlist = compbitlist(bitlist)
             # nu kan vi göra 9 till queries, menvi gör bara 8 + 1 en extra (som inte ger nåt)
-            for q in range(9):
-                while True:
-                    if index in range((bits//2)-5, (bits//2)+5):
-                        index += 1
-                    else:
-                        break
-                if index > bits:
-                    break
-                fprint(outputindex(index))
-                x = int(input())
-                bitlist[index] = x
-                if index >= bits:
-                    break
-                index += 1
-
+            nowqueries = 0
+            while nowqueries != 8 and 2 * offset < bits:
+                if bitlist[offset] == None:
+                    fprint(outputindex(offset))
+                    x = int(input())
+                    bitlist[offset] = x
+                    fprint(bits-offset)
+                    y = int(input())
+                    bitlist[bits-offset-1] = y
+                    queriesdone += 2
+                else:
+                    offset += 1
 
         else:
             # alla gör skillnad, men vilken som hände kan kännas igen genom att kolla två värden (som garanterat finns)
             checkbeforesym = bitlist[symmetriska[0]]
             checkbeforeass = bitlist[assymmetriska[0]]
             fprint(outputindex(symmetriska[0]))
-            checkaftersym = input()
+            checkaftersym = int(input())
             fprint(outputindex(assymmetriska[0]))
-            checkafterass = input()
+            checkafterass = int(input())
             queriesdone += 2
             if checkbeforesym != checkaftersym:
                 # comp eller rev comp
@@ -126,26 +120,24 @@ for testcase in range(0, testcases):
                     # inget
                     pass
             # nu kan vi göra 8 queries till innan vi måsta kolla igen
-            for q in range(8):
-                while True:
-                    if index in range((bits//2)-5, (bits//2)+5):
-                        index += 1
-                    else:
-                        break
-                if index > bits:
-                    break
-                
-                fprint(outputindex(index))
-                x = int(input())
-                bitlist[index] = x
-                if index == bits:
-                    break
-                index += 1
-    print("".join([str(char) for char in bitlist]))
+            nowqueries = 0
+            while nowqueries != 8 and 2 * offset < bits:
+                if bitlist[offset] == None:
+                    fprint(outputindex(offset))
+                    x = int(input())
+                    bitlist[offset] = x
+                    fprint(bits-offset)
+                    y = int(input())
+                    bitlist[bits-offset-1] = y
+                    queriesdone += 2
+                else:
+                    offset += 1
+
+    fprint("".join([str(char) for char in bitlist]))
     confirm = input()
     if confirm == "Y":
         continue
     elif confirm == "N":
-        exit()
+        exit(0)
     else:
         print("Help, this should never happen!?!?!")
