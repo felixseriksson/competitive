@@ -1,7 +1,13 @@
 from sys import exit
 
+# global querycounter
+# querycounter = -1
+
 def fprint(*args, **kwargs):
     print(*args, **kwargs, flush=True)
+    # global querycounter
+    # querycounter += 1
+    # print("querycounter is: ", querycounter)
 
 def outputindex(index):
     return index + 1
@@ -41,7 +47,7 @@ for testcase in range(0, testcases):
     queriesdone = 10
     offset = 0 # vi gör jämna heltalsmultiplar av queries (första-sista, näst första-näst sista osv)
     # hitta symmetriskt och asymmetriskt par
-    while 2 * offset < bits:
+    while 2 * offset <= bits:
         # behöver inte kolla här, querisdone kommer alltid vara en heltalsmultipel av 10 när vi kommer hit, vi ser till det nere,
         # men vi kan kolla ändå
         if queriesdone % 10 == 0:
@@ -69,6 +75,9 @@ for testcase in range(0, testcases):
                     queriesdone += 2
                 else:
                     offset += 1
+            # dummy
+            fprint((bits//2))
+            _ = int(input())
 
 
         elif symmetriska == [None, None] and assymmetriska != [None, None]:
@@ -93,6 +102,9 @@ for testcase in range(0, testcases):
                     queriesdone += 2
                 else:
                     offset += 1
+            # dummy
+            fprint((bits//2))
+            _ = int(input())
 
         else:
             # alla gör skillnad, men vilken som hände kan kännas igen genom att kolla två värden (som garanterat finns)
