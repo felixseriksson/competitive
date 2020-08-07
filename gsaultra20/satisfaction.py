@@ -12,6 +12,17 @@ def solution(n, proposition):
     for i in range(1, 2**n):
         vals = [bool(int(char)) for char in str('{0:0'+str(n)+'b}').format(i)]
 '''
-proposition = "a and a and a and (a and a)"
+def solution(n, proposition):
+    # tmp = re.sub("a | a |a | a)", "vals[0]", proposition)
+    # kanske får lov att hårdkoda replacements (typ ersätt "a " i början med "vals[0] " och " (a " med " (vals[0] ") etc
+    # print(tmp)
+    letters = string.ascii_lowercase
+    for i in range(2**n):
+        vals = [bool(int(char)) for char in str('{0:0'+str(n)+'b}').format(i)]
+        for index in range(n):
+            chr() = vals[index]
+            print(letters[index])
+        print(eval(proposition))
+    return
 
-print(tmp)
+solution(4,"a and a and a and (a and a)")
