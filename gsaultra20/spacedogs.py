@@ -34,8 +34,10 @@ def solution(masses, locations):
         #del locations[otherindex if otherindex < mindex else otherindex-1]
         #masses.insert(0, newmass)
         #locations.insert(0, newloc)
-        bisect.insort(listlist, (newmass, newloc))
+        #bisect.insort(listlist, (newmass, newloc))
+        listlist.insert(0, (newmass, newloc))
+        listlist.sort()
     
     return sum(listlist[0][1])
 
-#print(solution([2, 5, 4], [(1, 4), (3, 1), (2, 6)]))
+print(solution([2, 5, 4], [(1, 4), (3, 1), (2, 6)]))
