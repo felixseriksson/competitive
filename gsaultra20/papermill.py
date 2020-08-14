@@ -33,14 +33,34 @@ def solution(qs):
     for i in range(len(qs)):
         a, b, c, d = qs[i]
         g = gcd(a, b)
-        if (powerLL(c, 1, a) == 0 and powerLL(d, 1, b) == 0) or (powerLL(d, 1, a) == 0 and powerLL(c, 1, b) == 0):
-            ret = "1" + ret
-        elif (powerLL(c, 1, a) == 0 and powerLL(c, 1, b) == 0 and powerLL(d, 1, g) == 0) or (powerLL(d, 1, a) == 0 and powerLL(d, 1, b) == 0 and powerLL(c, 1, g) == 0):
-            ret = "1" + ret
-        else:
+        # if c % g == 0 or d % g == 0:
+        #     if c % a == 0 or d % a == 0:
+        #         if c % b == 0 or d % b == 0:
+        #             if ((c % (a*b))*(d % (a*b))) % (a*b) == 0:
+        #                 ret += 2**i
+        #                 ret = ret % (10**9+7)
+
+        # if (a > c and a > d) or (b > c and b > d):
+        #     ret = "0" + ret
+        # elif (int(c % (a*b)))*(int(d % (a*b))) % (a*b) != 0:
+        #     ret = "0" + ret
+        # elif (powerLL(c, 1, a) == 0 and powerLL(d, 1, b) == 0) or (powerLL(d, 1, a) == 0 and powerLL(c, 1, b) == 0):
+        #     ret = "1" + ret
+        # elif (powerLL(c, 1, a) == 0 and powerLL(c, 1, b) == 0 and powerLL(d, 1, g) == 0) or (powerLL(d, 1, a) == 0 and powerLL(d, 1, b) == 0 and powerLL(c, 1, g) == 0):
+        #     ret = "1" + ret
+        # else:
+        #     ret = "0" + ret
+        if c % a != 0 and d % a != 0:
             ret = "0" + ret
+        elif c % b != 0 and d % b != 0:
+            ret = "0" + ret
+        elif a*b > c*d:
+            ret = "0" + ret
+        else:
+            ret = "1" + ret
     ret = int(ret, base=2)
-    return ret % (10**9+7)
+    return int(ret % (10**9+7))
+    
 
 print(solution([(3, 2, 5, 6)]))
 print(solution([(1, 3, 10, 15)]))
