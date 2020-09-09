@@ -23,3 +23,15 @@ for key in sorted(sockslist.keys()):
         capleft = 0
 
 print(machines)
+
+
+n = int(input("Skriv in n: "))
+dlist = []
+qlist = []
+for num in range(n):
+    d = input("Skriv in ett d: ")
+    dlist.append(d)
+for num in range(n):
+    q = input("Skriv in ett q: ")
+    qlist.append(q)
+# görfinmattemedräntor(dlist, qlist)
