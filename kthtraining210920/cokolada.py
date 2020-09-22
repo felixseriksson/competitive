@@ -1,0 +1,1 @@
+print(*tuple(*[(2**(len(str(bin(num)))-2), len(str(bin(num)).rstrip("0"))-2) if set(str(bin(num))[3:] + "0") != set("0") else (num, 0) for num in [int(input())]]))
