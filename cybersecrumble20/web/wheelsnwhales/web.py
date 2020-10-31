@@ -11,11 +11,6 @@ EASTER_WHALE = {"name": "TheBestWhaleIsAWhaleEveryOneLikes", "image_num": 2, "we
 def index():
     return render_template("index.html.jinja", active="home")
 
-
-@app.route("/")
-def foo():
-    return make_response(flag.get_flag(), 200)
-
 class Whale:
     def __init__(self, name, image_num, weight):
         self.name = name
