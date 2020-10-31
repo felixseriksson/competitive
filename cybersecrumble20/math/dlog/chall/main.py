@@ -110,12 +110,19 @@ class EllipticCurve:
 a = 0
 b = 7
 p = 0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f
+# = 115792089237316195423570985008687907853269984665640564039457584007908834671663
+# p + 1 = 115792089237316195423570985008687907853269984665640564039457584007908834671664
+# = 2**4 * 7322137 * 45422601869677 * 21759506893163426790183529804034058295931507131047955271
+# enligt factordb
+# bitcoin curve
 
 secp256k1 = EllipticCurve(a, b, p)
 
 print("gif point to nom nom:")
 x = input("x: ")
 y = input("y: ")
+
+# Vi ger en godtycklig generator point, vilket borde (?) tillåta oss att ge en "svag" generator point som gör det lätt att hitta secret?
 
 if len(x) > 78 or len(y) > 78:
     print("values too large!")
