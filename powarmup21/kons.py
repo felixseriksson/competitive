@@ -1,0 +1,1 @@
+print(__import__("re").sub("([bcdfghjklmnpqrstvwxz])\\1\\1*", "\\1\\1", input()))
