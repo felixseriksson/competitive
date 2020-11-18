@@ -4,10 +4,19 @@ words = []
 for _ in range(numwords):
     words.append(input())
 
+def solveprint(p, n): 
+    k = 0
+    if p[n] == 1: 
+        k = 1
+    else: 
+        k = solveprint(p, p[n] - 1) + 1
+    print(*words[p[n]-1:n])
+    return k 
+
 offby = [[0 for _ in range(numwords + 1)] for _ in range(numwords + 1)]
 linecost = [[0 for _ in range(numwords + 1)] for _ in range(numwords + 1)]
-cost = [0 for _ in range(numwords + 1)]
-wrapon = [0 for _ in range(numwords + 1)]
+cost = [float("inf") for _ in range(numwords + 1)]
+p = [0 for _ in range(numwords + 1)]
 lengthofwordi = [len(k) for k in words]
 # print(lengthofwordi)
 
@@ -18,23 +27,35 @@ for i in range(numwords + 1):
         offby[i][j] = offby[i][j-1] - lengthofwordi[j-1] - 1
         linecost[i][j] = abs(offby[i][j])
 
-for line in linecost:
-    print(line)
+# for line in linecost:
+#     print(line)
+
+cost[0] = 0
+for j in range(1, numwords+1):
+    for i in range(1, j+1):
+        if cost[i-1] != float("inf") and linecost[i][j] != float("inf") and cost[i-1] + linecost[i][j] < cost[j]:
+            cost[j] = cost[i-1] + linecost[i][j]
+            p[j] = i
+# print()
+# print(cost)
+# print(p)
+
+solveprint(p, numwords)
 
 # for j in range(numwords, 1, -1):
 #     for i in range(numwords, j, -1):
 #         if i == j:
 #             cost[j] = linecost[i][j]
-#             wrapon[j] = i
+#             p[j] = i
 #         else:
 #             cost[j] = linecost[i][j]
-#             wrapon[j] = i
+#             p[j] = i
 # print(cost)
 # # for line in linecost:
 # #     print(linecost)
-for row in range(numwords, 0, -1):
-    for col in range(row, numwords+1):
-        print(linecost[row][col])
+# for row in range(numwords, 0, -1):
+#     for col in range(row, numwords+1):
+#         print(linecost[row][col])
 
 # Tushar   
 # Roy likes
