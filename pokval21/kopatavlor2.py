@@ -29,3 +29,22 @@ for l in range(k+1, n+1):
         # !!!!!!!!!!!!!!!!!!!!
         newmaxused = "fan"
         newloss.append((newa, newb, newrunningsum, newmaxused))
+
+''' ---- bra för 37 poäng, får tle på case 2 och 4
+n, k = [int(x) for x in input().split()]
+time = [int(x) for x in input().split()]
+vals = []
+if k == 1:
+    vals = time
+else:
+    for length in range(k, n+1):
+        left = 0
+        right = length
+        for offset in range(n-length + 1):
+            runningsum = time[left + offset] + time[right + offset - 1]
+            sublist = time[left + offset + 1:right + offset - 1]
+            runningsum += sum(sorted(sublist)[:k-2])
+            runningsum += length - 1
+            vals.append(runningsum)
+print(min(vals))
+------'''
