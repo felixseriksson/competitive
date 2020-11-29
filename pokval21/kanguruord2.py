@@ -139,38 +139,86 @@ for _ in range(int(input())):
 print(ctr)
 '''
 # reeee
-def is_subseq(x, y):
-    it = iter(y)
-    return all(c in it for c in x)
+# def is_subseq(x, y):
+#     it = iter(y)
+#     return all(c in it for c in x)
 
-def contains_repetition(x, y):
-    last = None
-    curind = 0
-    for letter in y:
-        if curind >= len(x):
-            if letter == last:
-                return True
-        elif letter == last and letter != x[curind]:
-            return True
-        elif curind < len(x):
-            if letter == x[curind]:
-                last = x[curind]
-                curind += 1
+# def contains_repetition(x, y):
+#     last = None
+#     curind = 0
+#     for letter in y:
+#         if curind >= len(x):
+#             if letter == last:
+#                 return True
+#         elif letter == last and letter != x[curind]:
+#             return True
+#         elif curind < len(x):
+#             if letter == x[curind]:
+#                 last = x[curind]
+#                 curind += 1
+#         else:
+#             pass
+#     return False
+
+# ordet = input()
+# ctr = 0
+
+# for _ in range(int(input())):
+#     candidate = input()
+#     if is_subseq(candidate, ordet):
+#         if is_subseq(candidate, ordet[ordet.index(candidate[0]) + 1:]):
+#             ctr += 1
+#         elif contains_repetition(candidate, ordet):
+#             ctr += 1
+#     else:
+#         pass
+
+# print(ctr)
+
+# def contains_repetition(x, y):
+#     last = None
+#     curind = 0
+#     for letter in y:
+#         if curind >= len(x):
+#             if letter == last:
+#                 return True
+#         elif letter == last and letter != x[curind]:
+#             return True
+#         elif curind < len(x):
+#             if letter == x[curind]:
+#                 last = x[curind]
+#                 curind += 1
+#         else:
+#             pass
+#     return False
+
+def contains_repetition_substring(x, y):
+    if x == y:
+        return False
+    it = iter(y)
+    j = 0
+    rep = False
+    last = 0
+    for i in it:
+        if j < len(x):
+            if i != x[j] and i == last:
+                rep = True
+            if i == x[j]:
+                j += 1
+                last = i
         else:
-            pass
-    return False
+            if rep:
+                break
+            if i == last:
+                return True
+    return True if rep else False
 
 ordet = input()
 ctr = 0
 
 for _ in range(int(input())):
     candidate = input()
-    if is_subseq(candidate, ordet):
-        if is_subseq(candidate, ordet[ordet.index(candidate[0]) + 1:]):
-            ctr += 1
-        elif contains_repetition(candidate, ordet):
-            ctr += 1
-    else:
-        pass
+    if contains_repetition_substring(candidate, ordet):
+        ctr += 1
 
 print(ctr)
