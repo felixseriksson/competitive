@@ -182,6 +182,7 @@ for i in range(len(string)):
         if string[i] == "e2":
             ctr += 1
         elif string[i] == str(hex(ord(words[curword][1])))[2:]:
+            ctr += len(words[curword])
             curword += 1
             active = False
             letters.append(ctr)
