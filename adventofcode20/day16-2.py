@@ -21,8 +21,7 @@ zone: 49-790 or 816-953"""
 
 myticket = "103,79,61,97,109,67,89,83,59,53,139,131,101,113,149,127,71,73,107,137"
 
-nearby = """995,788,471,242,434,229,779,295,142,455,322,597,851,287,520,534,324,63,462,839
-473,926,599,474,412,65,885,833,533,780,539,222,177,762,132,583,414,450,177,113
+nearby = """473,926,599,474,412,65,885,833,533,780,539,222,177,762,132,583,414,450,177,113
 110,74,420,522,243,130,575,115,553,92,157,193,370,949,334,74,53,462,837,822
 769,341,505,146,841,238,53,8,360,684,510,302,180,766,477,422,145,353,134,635
 163,575,850,89,241,604,337,346,428,407,826,573,904,779,543,576,910,469,621,368
@@ -263,3 +262,69 @@ nearby = """995,788,471,242,434,229,779,295,142,455,322,597,851,287,520,534,324,
 675,297,591,116,150,927,365,464,931,241,502,84,59,625,295,299,359,55,996,629
 287,538,856,845,111,464,227,676,254,576,420,366,325,507,402,57,535,117,59,906
 681,87,351,54,939,77,318,433,440,52,505,443,371,931,231,867,574,148,939,137"""
+
+ruledict = dict()
+for rule in rules.split("\n"):
+    rulename, rulevals = rule.split(": ")
+    first, second = rulevals.split(" or ")
+    ruledict[rulename] = set()
+    firstfirst, firstsecond = first.split("-")
+    for i in range(int(firstfirst), int(firstsecond)+1):
+        ruledict[rulename].add(i)
+    secondfirst, secondsecond = second.split("-")
+    for i in range(int(secondfirst), int(secondsecond)+1):
+        ruledict[rulename].add(i)
+megaset = set()
+megaset.update(*ruledict.values())
+
+nearby = [[int(k) for k in line.split(",")] for line in nearby.split("\n")]
+toremove = []
+for row in nearby:
+    for entry in row:
+        if entry not in megaset:
+            toremove.append(row)
+            continue
+
+for row in toremove:
+    nearby.remove(row)
+print(len(nearby))
+
+######
+
+def possible(potentialname, index):
+    for line in nearby:
+        if line[index] not in ruledict[potentialname]:
+            return False
+    
+    return True
+
+rulenames = list(ruledict.keys())
+finalrules = [0 for _ in range(20)]
+seenrules = set()
+
+def solve(rulestoassign):
+    try:
+        ind = finalrules.index(0)
+    except ValueError:
+        print(finalrules)
+        return True
+    
+    for ruletoassign in rulestoassign:
+        if ruletoassign not in seenrules:
+            if possible(ruletoassign, ind):
+                finalrules[ind] = ruletoassign
+                seenrules.add(ruletoassign)
+                if solve(rulestoassign):
+                    return True
+                finalrules[ind] = 0
+                seenrules.remove(ruletoassign)
+    return False
+
+print(finalrules)
+solve(rulenames)
+print(finalrules)
+prod = 1
+for name, val in zip(finalrules, [int(k) for k in myticket.split(",")]):
+    if name[:9] == "departure":
+        prod *= val
+print(prod) # output: 634796407951
