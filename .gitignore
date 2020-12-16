@@ -134,3 +134,6 @@ dmypy.json
 # scaniafinalserver, client
 scaniafinalserver/
 scaniafinalclient/
+
+# djul bilder
+vacation_pics/
