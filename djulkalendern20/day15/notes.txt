@@ -1,0 +1,23 @@
+Utu destroyed Inanna:
+Ninhursag denied all relief:
+Inanna banished all dead:
+Ki bled us:
+Old Babylon, incinerated:
+Dumizid died after Meškiaĝĝašer:
+Ereshkigal blessed An's rosary: 𒁇
+
+And despite our hardships, we moved 73728 cubits, keeping two zeros. We invented them, after all. 
+
+3 9 6: di U+12072 -> U+0072 = r
+9 6 3 6: dar U+1206f -> U+006F = o
+6 8 3 4: bad U+12041 -> U+0041 = A
+2 4 2: bu U+1204D -> U+004D = M
+3 7 11: bi U+12049 - U+0049 = I
+7 4 5 12: dam U+1206E -> U+006E = n
+10 7 3 6: bar U+12047 -> U+0047 = G
+
+unicode 73728 = Cuneiform Sign A
+
+idé: hitta symboler, bokstäver motsvarar differens mot 73728 = U+12000
+t. ex. 10 7 3 6/Ereshkigal blessed An's rosary ger Cuneiform Sign Bar/U+12047 -> u+0047 = G
+---> roaming
