@@ -1,0 +1,1 @@
+a = [print("Case #{}: {}".format(case, (lambda l: l.index(max(l)) + 1)([sum([int(x) for x in input()]) for _ in range(100)]))) for case in range(1, (lambda t, p: t + 1)(int(input()), int(input())))]
