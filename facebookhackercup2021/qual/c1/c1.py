@@ -1,68 +1,56 @@
-with open("c/test1.txt", "r") as inputfile:
+from collections import defaultdict
+with open("c1/test1.txt", "r") as inputfile:
     inp = [line.strip() for line in inputfile]
 
 cases = int(inp[0])
 i = 1
 out = []
 
-for ind in range(1,cases+1):
-    n = int(inp[i])
-    i += 1
-    board = []
-    for _ in range(n):
-        board.append(inp[i])
-        i += 1
-    minreq, occurrences = 10000000, 0
-    seen = set()
-    
-    for x, row in enumerate(board):
-        if "O" not in row:
-            req = sum([1 if char == "." else 0 for char in row])
-            if req == 1:
-                y = row.index(".")
-                if (x,y) in seen:
-                    pass
-                else:
-                    if req < minreq:
-                        minreq = req
-                        occurrences = 1
-                        seen.add((x,y))
-                    elif req == minreq:
-                        occurrences += 1
-                        seen.add((x,y))
-            else:
-                if req < minreq:
-                    minreq = req
-                    occurrences = 1
-                elif req == minreq:
-                    occurrences += 1
-    board = [list(z) for z in zip(*board)]
-    for x, row in enumerate(board):
-        if "O" not in row:
-            req = sum([1 if char == "." else 0 for char in row])
-            if req == 1:
-                y = row.index(".")
-                if (y,x) in seen:
-                    pass
-                else:
-                    if req < minreq:
-                        minreq = req
-                        occurrences = 1
-                    elif req == minreq:
-                        occurrences += 1
-            else:
-                if req < minreq:
-                    minreq = req
-                    occurrences = 1
-                elif req == minreq:
-                    occurrences += 1
+def solve(index):
+    n = int(inp[index])
+    value = [int(val) for val in inp[index+1].split(" ")]
+    value.insert[0, 0]
+    fromto = defaultdict(set)
+    for offset in range(1, n):
+        f, t = [int(node) for node in inp[index+1+offset].split(" ")]
+        fromto[f].add(t)
+        fromto[t].add(f)
+    maxret = maxgiven(1, set(), fromto, value, 1)
 
-    if occurrences == 0:
-        out.append(f"Case #{ind}: Impossible")
+    return maxret, index+n+1
+
+def maxgiven(root, disallowededges, adj, val, k):
+    candidatenodes = set([node for node in adj[root] if node not in disallowededges])
+    # currentvalue = vals
+    # if len(candidatenodes) > 0:
+    #     for candidate in candidatenodes:
+    #         tempdisallowed = set([x for x in disallowededges])
+    #         tempdisallowed.add((root, candidate))
+    #         tempemptynodes = set([x for x in emptynodes])
+    #         tempemptynodes.add(root)
+    #         tempcurrentvalue = currentvalue + val[root]
+    #         maxgiven(candidate, tempdisallowed))
+    currentval = val[root]
+    newval = [a if a!=root else 0 for a in val]
+    if len(candidatenodes) > 0:
+        maxfromedge = 0
+        for candidate in candidatenodes:
+            pass
     else:
-        out.append(f"Case #{ind}: {minreq} {occurrences}")
+        maxfromedge = 0
+    if k > 0:
+        maxfromk = 0
+        for candidate in range(1, n+1):
+            pass
+    else:
+        maxfromk = 0
+    
 
 
-with open("c/test1-out.txt", "w") as outfile:
+for ind in range(1,cases+1):
+    gold, i = solve(i)
+
+
+with open("c1/test1-out.txt", "w") as outfile:
     for line in out:
         outfile.write(line + "\n")
