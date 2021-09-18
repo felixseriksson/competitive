@@ -48,7 +48,7 @@ def intriangle(p1, p2, p3, p):
 
 def inrectangle(p1, p2, p3, p4, p):
     numcrossings = 0
-    if onsegment(p1, p2, p) or onsegment(p2, p3, p) or onsegment(p3, p1, p):
+    if onsegment(p1, p2, p) or onsegment(p2, p3, p) or onsegment(p3, p4, p) or onsegment(p4, p1, ):
         return False
     if crossesray(p, p1, p2):
         numcrossings += 1
