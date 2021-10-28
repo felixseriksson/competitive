@@ -4,7 +4,7 @@ d = []
 for index, day in enumerate(days):
     for _ in range(day):
         d.append(index+1)
-print(d)
+# print(d)
 for q in [int(x) for x in input().split()]:
     try:
         print(d[q])
