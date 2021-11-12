@@ -3,12 +3,12 @@ import os
 
 print(os.getcwd())
 
-weapons = pd.read_csv("Data/weapons.csv", sep=";")
+weapons = pd.read_csv("datacase-data/weapons.csv", sep=";")
 print(weapons.describe())
 # print(weapons.head())
 
 print("samples: \n")
-samples = pd.read_csv("Data/murderdata.csv", sep=";")
+samples = pd.read_csv("datacase-data/murderdata.csv", sep=";")
 print(samples.describe())
 # vettel = d1[]
 
