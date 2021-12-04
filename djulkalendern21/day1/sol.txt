@@ -1,0 +1,6 @@
+ciphertext = hoO-HOo-hoo hoO-Hoo-HoO hoO-HOo-hOo hoO-HoO-HoO hoO-Hoo-hoO hoO-HoO-HOo hoO-Hoo-HoO hoO-HoO-HOo hoO-HOo-Hoo
+001110000 001100101 001110010 001101101 001100001 001101110 001100101 001101110 001110100
+! ASCII is 8 bit, so skip first bit which is always zero anyway !
+cipher: ASCII/UTF-8
+https://www.rapidtables.com/convert/number/binary-to-ascii.html
+plaintext = permanent

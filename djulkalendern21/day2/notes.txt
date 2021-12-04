@@ -1,0 +1,2 @@
+von goethe birth year = 1749
+multiply by 10 -> 17490
