@@ -1,0 +1,87 @@
+1,10  V
+1,11  G
+1,12  H
+1,13  V
+1,14  E
+1,15  B
+2,9   S
+3,8   F
+3,10  G
+4,7   C
+4,10  A
+4,11  W
+4,12  T
+4,13  R
+4,14  T
+4,15  T
+5,6   J
+5,10  R
+5,11  F
+6,5   N
+6,10  D
+6,11  F
+6,14  B
+7,4   B
+7,10  E
+7,11  H
+7,12  Y
+7,13  Y
+7,14  C
+7,15  G
+8,3   T
+8,10  N
+9,1   K
+10,3  Z
+10,10 K
+10,11 B
+10,12 L
+10,13 B
+10,14 B
+11,4  P
+11,10 Q
+11,12 R
+11,14 C
+12,5  U
+12,10 B
+12,11 B
+12,12 W
+12,13 M
+12,14 W
+13,6  J
+13,10 U
+13,12 O
+13,14 W
+14,7  W
+14,10 W
+14,11 C
+14,12 M
+14,13 Y
+14,14 V
+15,8  N
+16,9  T
+17,10 A
+17,11 W
+17,12 M
+17,13 R
+17,14 J
+17,15 K
+
+xxxxxxxxxVGHVEB
+xxxxxxxxSxxxxxx
+xxxxxxxFxGxxxxx
+xxxxxxCxxAWTRTT
+xxxxxJxxxRFxxxx
+xxxxNxxxxDFxxBx
+xxxBxxxxxEHYYCG
+xxTxxxxxxNxxxxx
+Kxxxxxxxxxxxxxx
+xxZxxxxxxKBLBBx
+xxxPxxxxxQxRxCx
+xxxxUxxxxBBWMWx
+xxxxxJxxxUxOxWx
+xxxxxxWxxWCMYVx
+xxxxxxxNxxxxxxx
+xxxxxxxxTxxxxxx
+xxxxxxxxxAWMRJK
+
+password = garden
