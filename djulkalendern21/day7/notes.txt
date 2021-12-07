@@ -1,0 +1,6 @@
+sol: 
+http://djul-2021-kahootish.medusa.datasektionen.se/start
+sen http://djul-2021-kahootish.medusa.datasektionen.se/getStatus
+och http://djul-2021-kahootish.medusa.datasektionen.se/answer/{1, 2, 3, 4}
+beroende på vad getStatus ger tills man får 10 poäng
+då skickar getStatus flaggan bumfuzzle
