@@ -1,0 +1,8 @@
+Goldbach's weak conjecture: every odd integer >= 5 can be written as the sum of 3 primes
+38399, 12803, 33497, 22847, 12383
+have factors
+19*43*47, 7*31*59, 19*41*43, 11*31*67, 7*29*61
+"When all factors are taken into account, you realize that it only makes sense when you take the sum of its parts"
+so we take sums of factors and find that they are
+109, 97, 103, 109, 97, or
+magma in ASCII
