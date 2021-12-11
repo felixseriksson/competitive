@@ -1,0 +1,2 @@
+find hamiltonian path from start to exit three times
+flag = fastidious
