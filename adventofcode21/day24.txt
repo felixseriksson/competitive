@@ -1,0 +1,81 @@
+for step in range(14):
+	w = next_digit()
+	x = z % 26
+
+	if step == 0: 1
+		z //= 1
+		x += 10
+	elif step == 1: 2
+		z //= 1
+		x += 12
+	elif step == 2: 3
+		z //= 1
+		x += 13
+	elif step == 3: 4
+		z //= 1
+		x += 13
+	elif step == 4: 5
+		z //= 1
+		x += 14
+	elif step == 5: 4
+		z //= 26
+		x += -2
+	elif step == 6: 5
+		z //= 1
+		x += 11
+	elif step == 7: 5
+		z //= 26
+		x += -15
+	elif step == 8: 4
+		z //= 26
+		x += -10
+	elif step == 9: 4
+		z //= 1
+		x += 10
+	elif step == 10:
+		z //= 26
+		x += -10
+	elif step == 11:
+		z //= 26
+		x += -4
+	elif step == 12:
+		z //= 26
+		x += -1
+	elif step == 13:
+		z //= 26
+		x += -1
+
+	if x != w:
+		z *= 26
+		y = w
+
+		if step == 0:
+			y += 0
+		elif step == 1:
+			y += 6
+		elif step == 2:
+			y += 4
+		elif step == 3:
+			y += 2
+		elif step == 4:
+			y += 9
+		elif step == 5:
+			y += 1
+		elif step == 6:
+			y += 10
+		elif step == 7:
+			y += 6
+		elif step == 8:
+			y += 4
+		elif step == 9:
+			y += 6
+		elif step == 10:
+			y += 3
+		elif step == 11:
+			y += 9
+		elif step == 12:
+			y += 15
+		elif step == 13:
+			y += 5
+
+	z += y
