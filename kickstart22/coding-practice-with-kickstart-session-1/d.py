@@ -1,17 +1,30 @@
 from collections import deque
 
-def findcomponents(grid, char):
+def countcolours(g):
+    nb, nr = 0, 0
+    for line in g:
+        for c in line:
+            if c == "B":
+                nb += 1
+            elif c == "R":
+                nr += 1
+            else:
+                pass
+    return nb, nr
+
+def findcomponents(g):
     offsets = [(0, -1), (-1, 0), (-1, 1), (0, 1), (1, 0), (1, -1)]
     ret = []
     seen = set()
     for i in range(1, len(grid)):
         for j in range(1, len(grid)):
-            if (i, j) in seen or grid[i][j] != char:
+            if (i, j) in seen or g[i][j] == "." or g[i][j] == "#":
                 continue
             else:
                 comp = [(i, j)]
                 seen.add((i, j))
                 q = deque([(i, j)])
+                char = grid[i][j]
                 while len(q) > 0:
                     ci, cj = q.popleft()
                     for oi, oj in offsets:
@@ -24,84 +37,107 @@ def findcomponents(grid, char):
                 ret.append(comp)
     return ret
 
-def getverdict(grid):
-    bluecomponents = findcomponents(grid, "B")
-    redcomponents = findcomponents(grid, "R")
-    bluehaspath, redhaspath = False, False
-    for comp in bluecomponents:
-        onleft = [c for c in comp if c[1] == 1]
-        onright = [c for c in comp if c[1] == len(grid)-2]
-        if len(onleft) > 0 and len(onright) > 0:
-            bluehaspath = True
-    for comp in redcomponents:
-        ontop = [c for c in comp if c[0] == 1]
-        onbottom = [c for c in comp if c[0] == len(grid)-2]
-        if len(ontop) > 0 and len(onbottom) > 0:
-            redhaspath = True
-    if bluehaspath and redhaspath:
-        return "Impossible"
-    elif bluehaspath and not redhaspath:
-        return "Blue wins"
-    elif not bluehaspath and redhaspath:
-        return "Red wins"
+def potentialwinningpaths(cs, g):
+    ret = []
+    n = len(g) - 2
+    for c in cs:
+        clr = g[c[0][0]][c[0][1]]
+        if clr == "B":
+            lc = [c[i] for i in range(len(c)) if c[i][1] == 1]
+            rc = [c[i] for i in range(len(c)) if c[i][1] == n]
+        elif clr == "R":
+            lc = [c[i] for i in range(len(c)) if c[i][0] == 1]
+            rc = [c[i] for i in range(len(c)) if c[i][0] == n]
+        else:
+            print("This should not happen!")
+            exit(0)
+
+        if len(lc) > 0 and len(rc) > 0:
+            ret.append(c)
+    
+    return ret
+
+def isoneconnected(c, clr, n):
+    ioc = False
+    if clr == "B":
+        lc = [c[i] for i in range(len(c)) if c[i][1] == 1]
+        rc = [c[i] for i in range(len(c)) if c[i][1] == n]
+    elif clr == "R":
+        lc = [c[i] for i in range(len(c)) if c[i][0] == 1]
+        rc = [c[i] for i in range(len(c)) if c[i][0] == n]
+    if len(lc) == 1 or len(rc) == 1:
+        return True
+
+    for node in c:
+        newc = c[:]
+        newc.remove(node)
+        if isconnected(newc):
+            continue
+        else:
+            ioc = True
+    
+    return ioc
+
+def isconnected(c):
+    if len(c) == 0:
+        return False
+    offsets = [(0, -1), (-1, 0), (-1, 1), (0, 1), (1, 0), (1, -1)]
+    seen = set()
+    seen.add(c[0])
+    q = deque([c[0]])
+    c = set(c)
+    while len(q) > 0:
+        ci, cj = q.popleft()
+        for oi, oj in offsets:
+            if (ci + oi, cj + oj) in seen or (ci + oi, cj + oj) not in c:
+                continue
+            else:
+                seen.add((ci + oi, cj + oj))
+                q.append((ci + oi, cj + oj))
+
+    if len(c.symmetric_difference(seen)) == 0:
+        return True
     else:
-        return "Nobody wins"
+        return False
+
 
 for ind in range(int(input())):
     n = int(input())
-    g = [["#" for _ in range(n+2)]]
+    grid = [["#" for _ in range(n+2)]]
     for _ in range(n):
         l = ["#"]
         l.extend([char for char in input()])
         l.append("#")
-        g.append(l)
-    g.append(["#" for _ in range(n+2)])
+        grid.append(l)
+    grid.append(["#" for _ in range(n+2)])
 
-    nred, nblue = 0, 0
-    for line in g:
-        for char in line:
-            if char == "R":
-                nred += 1
-            elif char == "B":
-                nblue += 1
-    if abs(nred-nblue) > 1:
+    # parity check: Om skillnaden i antal lagda är > 1: omöjligt
+    # Annars: Hitta alla sammanhängande komponenter
+    # Hitta alla som är blå och spänner höger vänster eller röda och spänner upp ner
+    # Om det finns noll sådana: ej färdigt.
+    # Om det finns totalt 2 eller fler sådana: omöjligt
+    # Annars finns exakt en sådan
+    # Har den färgen fler än eller lika många lagda som motsatt färg? Om nej, omöjligt, annars...
+    # Verifiera att denna är 1-connected: Om ja har den färgen vunnit, annars omöjligt
+
+    nblue, nred = countcolours(grid)
+    if nblue > nred+1 or nred > nblue + 1:
         print(f"Case #{ind+1}: Impossible")
-        continue
     else:
-        bluelegitwins, redlegitwins, impossible = False, False, False
-        for i in range(1, n+2):
-            for j in range(1, n+2):
-                if g[i][j] == "B":
-                    g[i][j] = "."
-                    oldverdict = getverdict(g)
-                    g[i][j] = "B"
-                    newverdict = getverdict(g)
-                    if oldverdict == "Nobody wins" and newverdict == "Blue wins":
-                        bluelegitwins = True
-                    elif newverdict == "Impossible":
-                        impossible = True
-                    else:
-                        pass
-                elif g[i][j] == "R":
-                    g[i][j] = "."
-                    oldverdict = getverdict(g)
-                    g[i][j] = "R"
-                    newverdict = getverdict(g)
-                    if oldverdict == "Nobody wins" and newverdict == "Red wins":
-                        redlegitwins = True
-                    elif newverdict == "Impossible":
-                        impossible = True
-                    else:
-                        pass
-        if bluelegitwins and redlegitwins:
-            impossible = True
-            print("both bluelegitwins and redlegitwins should not be true!")
-        if impossible:
+        components = findcomponents(grid)
+        components = potentialwinningpaths(components, grid)
+        if len(components) == 0:
+            print(f"Case #{ind+1}: Nobody wins")
+        elif len(components) >= 2:
             print(f"Case #{ind+1}: Impossible")
         else:
-            if bluelegitwins:
-                print(f"Case #{ind+1}: Blue wins")
-            elif redlegitwins:
-                print(f"Case #{ind+1}: Red wins")
+            component = components[0]
+            colour = grid[component[0][0]][component[0][1]]
+            if (colour == "R" and nred < nblue) or (colour == "B" and nblue < nred):
+                print(f"Case #{ind+1}: Impossible")
             else:
-                print(f"Case #{ind+1}: Nobody wins")
+                if isoneconnected(component, colour, len(grid)-2):
+                    colour = "Red" if colour == "R" else "Blue"
+                    print(f"Case #{ind+1}: {colour} wins")
+                else:
+                    print(f"Case #{ind+1}: Impossible")
