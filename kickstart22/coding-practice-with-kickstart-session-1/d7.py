@@ -99,4 +99,3 @@ class Graph:
                     continue
                 else:
                     visited.add(other)
-                    q.append(other)
